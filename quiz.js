@@ -173,7 +173,7 @@ class QuizGame {
                 correctAnswer: 2
             },
             {
-                question: "What is the symbol for pi (π)?",
+                question: "What is the approximate value of pi (π)?",
                 options: ["3.14", "3.15", "3.16", "3.17"],
                 correctAnswer: 0
             },

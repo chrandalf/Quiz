@@ -73,7 +73,7 @@ A unique poker game that combines classic Texas Hold'em with trivia challenges! 
 - Small Blind: Set at game start
 - Big Blind: 2x Small Blind
 - Raises: Fixed at 1x Big Blind
-- Maximum 1 raise per betting round (limit poker)
+- Limit betting ensures games don't end too quickly
 
 ## Technologies Used
 - HTML5

@@ -113,8 +113,14 @@ class PokerGame {
             return { rank: 8, cards: sortedCards, description: 'Four of a Kind' };
         }
 
-        // Full House
-        if (counts.threeOfAKind && counts.pairs >= 1) {
+        // Full House (three of a kind + a pair)
+        const rankCounts = {};
+        for (let card of sortedCards) {
+            rankCounts[card.rank] = (rankCounts[card.rank] || 0) + 1;
+        }
+        const hasThreeOfAKind = Object.values(rankCounts).includes(3);
+        const hasPair = Object.values(rankCounts).includes(2);
+        if (hasThreeOfAKind && hasPair) {
             return { rank: 7, cards: sortedCards, description: 'Full House' };
         }
 

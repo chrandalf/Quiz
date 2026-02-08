@@ -292,12 +292,11 @@ class Game {
             resultDiv.className = 'quiz-result correct';
             const doubleAmount = this.poker.pot * 2;
             resultDiv.textContent = `🎉 Correct! ${this.quizAnswerer.name} wins DOUBLE the pot: $${doubleAmount}!`;
-            this.quizAnswerer.chips += doubleAmount;
-            // Take extra chips from the asker
-            const extraAmount = this.poker.pot;
-            const actualExtra = Math.min(extraAmount, this.quizAsker.chips);
-            this.quizAsker.chips -= actualExtra;
-            this.quizAnswerer.chips += actualExtra;
+            // Winner gets pot, plus extra pot-amount taken from loser
+            this.quizAnswerer.chips += this.poker.pot;
+            const extraAmount = Math.min(this.poker.pot, this.quizAsker.chips);
+            this.quizAsker.chips -= extraAmount;
+            this.quizAnswerer.chips += extraAmount;
         } else {
             resultDiv.className = 'quiz-result incorrect';
             resultDiv.textContent = `❌ Wrong! The correct answer was: ${this.currentQuizQuestion.options[this.currentQuizQuestion.correctAnswer]}. ${this.quizAnswerer.name} wins the regular pot: $${this.poker.pot}`;
