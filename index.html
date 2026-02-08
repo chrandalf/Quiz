@@ -371,7 +371,19 @@
                 return;
             }
 
-            gameState = JSON.parse(savedGame);
+            try {
+                gameState = JSON.parse(savedGame);
+            } catch (e) {
+                alert('Error loading game. Please try again.');
+                return;
+            }
+
+            // Check for duplicate player names
+            if (gameState.players.some(p => p.name === playerName)) {
+                alert('A player with this name already exists in the room. Please choose a different name.');
+                return;
+            }
+
             gameState.currentPlayerName = playerName;
             gameState.currentPlayer = {
                 name: playerName,
@@ -555,6 +567,11 @@
         // Reset game
         function resetGame() {
             stopPolling();
+            // Clean up localStorage entries
+            if (gameState.roomCode) {
+                localStorage.removeItem(`quiz_${gameState.roomCode}`);
+                localStorage.removeItem(`quiz_${gameState.roomCode}_started`);
+            }
             gameState = {
                 roomCode: '',
                 players: [],
@@ -571,7 +588,7 @@
 
         function startPolling() {
             stopPolling();
-            pollInterval = setInterval(checkForUpdates, 2000);
+            pollInterval = setInterval(checkForUpdates, 1000); // Poll every second for responsive updates
         }
 
         function stopPolling() {
@@ -585,7 +602,9 @@
             if (!gameState.roomCode) return;
 
             const savedGame = localStorage.getItem(`quiz_${gameState.roomCode}`);
-            if (savedGame) {
+            if (!savedGame) return;
+
+            try {
                 const updatedGame = JSON.parse(savedGame);
                 
                 // Update players list if in lobby
@@ -609,6 +628,8 @@
                     gameState.players = updatedGame.players;
                     updateScores();
                 }
+            } catch (e) {
+                console.error('Error parsing game state:', e);
             }
         }
     </script>
