@@ -326,9 +326,14 @@
             return Math.random().toString(36).substring(2, 8).toUpperCase();
         }
 
+        function sanitizePlayerName(name) {
+            // Remove any HTML tags and limit length
+            return name.replace(/<[^>]*>/g, '').substring(0, 20).trim();
+        }
+
         // Create game
         function createGame() {
-            const hostName = document.getElementById('hostName').value.trim();
+            const hostName = sanitizePlayerName(document.getElementById('hostName').value);
             if (!hostName) {
                 alert('Please enter your name');
                 return;
@@ -357,7 +362,7 @@
 
         // Join game
         function joinGame() {
-            const playerName = document.getElementById('playerName').value.trim();
+            const playerName = sanitizePlayerName(document.getElementById('playerName').value);
             const roomCode = document.getElementById('roomCode').value.trim().toUpperCase();
 
             if (!playerName || !roomCode) {
@@ -411,10 +416,16 @@
             gameState.players.forEach(player => {
                 const playerItem = document.createElement('div');
                 playerItem.className = 'player-item';
-                playerItem.innerHTML = `
-                    <span>${player.name}</span>
-                    <span class="status">${player.name === gameState.currentPlayerName ? '(You)' : ''}</span>
-                `;
+                
+                const nameSpan = document.createElement('span');
+                nameSpan.textContent = player.name;
+                
+                const statusSpan = document.createElement('span');
+                statusSpan.className = 'status';
+                statusSpan.textContent = player.name === gameState.currentPlayerName ? '(You)' : '';
+                
+                playerItem.appendChild(nameSpan);
+                playerItem.appendChild(statusSpan);
                 playersList.appendChild(playerItem);
             });
 
@@ -509,10 +520,15 @@
             gameState.players.forEach(player => {
                 const scoreItem = document.createElement('div');
                 scoreItem.className = 'player-score';
-                scoreItem.innerHTML = `
-                    <span>${player.name}</span>
-                    <span>${player.score} pts</span>
-                `;
+                
+                const nameSpan = document.createElement('span');
+                nameSpan.textContent = player.name;
+                
+                const scoreSpan = document.createElement('span');
+                scoreSpan.textContent = `${player.score} pts`;
+                
+                scoreItem.appendChild(nameSpan);
+                scoreItem.appendChild(scoreSpan);
                 scoresDiv.appendChild(scoreItem);
             });
         }
@@ -545,10 +561,16 @@
             sortedPlayers.forEach((player, index) => {
                 const scoreItem = document.createElement('div');
                 scoreItem.className = 'player-score';
-                scoreItem.innerHTML = `
-                    <span>${index === 0 ? '🥇' : index === 1 ? '🥈' : index === 2 ? '🥉' : ''}  ${player.name}</span>
-                    <span>${player.score} pts</span>
-                `;
+                
+                const nameSpan = document.createElement('span');
+                const medal = index === 0 ? '🥇' : index === 1 ? '🥈' : index === 2 ? '🥉' : '';
+                nameSpan.textContent = `${medal}  ${player.name}`;
+                
+                const scoreSpan = document.createElement('span');
+                scoreSpan.textContent = `${player.score} pts`;
+                
+                scoreItem.appendChild(nameSpan);
+                scoreItem.appendChild(scoreSpan);
                 finalScoresDiv.appendChild(scoreItem);
             });
 
