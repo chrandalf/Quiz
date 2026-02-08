@@ -1,0 +1,246 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "Quiz Schema",
+  "description": "JSON schema for quiz questions and quizzes",
+  "definitions": {
+    "questionBase": {
+      "type": "object",
+      "required": ["id", "type", "category", "difficulty", "points", "question", "correctAnswer"],
+      "properties": {
+        "id": {
+          "type": "string",
+          "description": "Unique identifier for the question"
+        },
+        "type": {
+          "type": "string",
+          "enum": ["multiple-choice", "true-false", "short-answer", "multiple-select"],
+          "description": "Type of question"
+        },
+        "category": {
+          "type": "string",
+          "description": "Category or subject area"
+        },
+        "difficulty": {
+          "type": "string",
+          "enum": ["easy", "medium", "hard"],
+          "description": "Difficulty level"
+        },
+        "points": {
+          "type": "integer",
+          "minimum": 1,
+          "maximum": 10,
+          "description": "Point value for the question"
+        },
+        "timeLimit": {
+          "type": "integer",
+          "minimum": 10,
+          "maximum": 300,
+          "description": "Time limit in seconds (optional)"
+        },
+        "question": {
+          "type": "string",
+          "minLength": 5,
+          "description": "The question text (supports markdown)"
+        },
+        "explanation": {
+          "type": "string",
+          "description": "Explanation of the correct answer (optional)"
+        },
+        "hint": {
+          "type": "string",
+          "description": "Hint to help answer the question (optional)"
+        },
+        "tags": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "description": "Tags for filtering and search (optional)"
+        }
+      }
+    },
+    "multipleChoiceQuestion": {
+      "allOf": [
+        { "$ref": "#/definitions/questionBase" },
+        {
+          "properties": {
+            "type": {
+              "const": "multiple-choice"
+            },
+            "options": {
+              "type": "array",
+              "minItems": 2,
+              "maxItems": 6,
+              "items": {
+                "type": "string"
+              },
+              "description": "Array of answer options"
+            },
+            "correctAnswer": {
+              "type": "string",
+              "description": "The correct answer (must match one option)"
+            }
+          },
+          "required": ["options"]
+        }
+      ]
+    },
+    "trueFalseQuestion": {
+      "allOf": [
+        { "$ref": "#/definitions/questionBase" },
+        {
+          "properties": {
+            "type": {
+              "const": "true-false"
+            },
+            "correctAnswer": {
+              "type": "boolean",
+              "description": "The correct answer (true or false)"
+            }
+          }
+        }
+      ]
+    },
+    "shortAnswerQuestion": {
+      "allOf": [
+        { "$ref": "#/definitions/questionBase" },
+        {
+          "properties": {
+            "type": {
+              "const": "short-answer"
+            },
+            "correctAnswer": {
+              "oneOf": [
+                {
+                  "type": "string",
+                  "description": "Single correct answer"
+                },
+                {
+                  "type": "array",
+                  "items": {
+                    "type": "string"
+                  },
+                  "minItems": 1,
+                  "description": "Multiple acceptable answers"
+                }
+              ]
+            }
+          }
+        }
+      ]
+    },
+    "multipleSelectQuestion": {
+      "allOf": [
+        { "$ref": "#/definitions/questionBase" },
+        {
+          "properties": {
+            "type": {
+              "const": "multiple-select"
+            },
+            "options": {
+              "type": "array",
+              "minItems": 3,
+              "maxItems": 10,
+              "items": {
+                "type": "string"
+              },
+              "description": "Array of answer options"
+            },
+            "correctAnswer": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              },
+              "minItems": 2,
+              "description": "Array of correct answers (must match options)"
+            }
+          },
+          "required": ["options"]
+        }
+      ]
+    },
+    "question": {
+      "oneOf": [
+        { "$ref": "#/definitions/multipleChoiceQuestion" },
+        { "$ref": "#/definitions/trueFalseQuestion" },
+        { "$ref": "#/definitions/shortAnswerQuestion" },
+        { "$ref": "#/definitions/multipleSelectQuestion" }
+      ]
+    },
+    "quizSettings": {
+      "type": "object",
+      "properties": {
+        "shuffleQuestions": {
+          "type": "boolean",
+          "default": false,
+          "description": "Whether to randomize question order"
+        },
+        "shuffleOptions": {
+          "type": "boolean",
+          "default": false,
+          "description": "Whether to randomize answer options"
+        },
+        "showFeedback": {
+          "type": "boolean",
+          "default": true,
+          "description": "Whether to show immediate feedback"
+        },
+        "allowSkip": {
+          "type": "boolean",
+          "default": true,
+          "description": "Whether users can skip questions"
+        },
+        "passingScore": {
+          "type": "integer",
+          "minimum": 0,
+          "maximum": 100,
+          "default": 70,
+          "description": "Minimum percentage to pass"
+        }
+      }
+    },
+    "quiz": {
+      "type": "object",
+      "required": ["id", "title", "questions"],
+      "properties": {
+        "id": {
+          "type": "string",
+          "description": "Unique identifier for the quiz"
+        },
+        "title": {
+          "type": "string",
+          "minLength": 3,
+          "description": "Title of the quiz"
+        },
+        "description": {
+          "type": "string",
+          "description": "Description of the quiz (optional)"
+        },
+        "questions": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/question"
+          },
+          "minItems": 1,
+          "description": "Array of questions in the quiz"
+        },
+        "settings": {
+          "$ref": "#/definitions/quizSettings",
+          "description": "Quiz configuration settings (optional)"
+        }
+      }
+    }
+  },
+  "type": "object",
+  "required": ["quizzes"],
+  "properties": {
+    "quizzes": {
+      "type": "array",
+      "items": {
+        "$ref": "#/definitions/quiz"
+      },
+      "minItems": 1,
+      "description": "Array of quizzes"
+    }
+  }
+}
