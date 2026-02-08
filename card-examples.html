@@ -1,0 +1,371 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Quiz Card Examples</title>
+    <link rel="stylesheet" href="card-styles.css">
+    <style>
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+            background: #f5f5f5;
+            padding: 20px;
+            margin: 0;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        h1 {
+            text-align: center;
+            color: #333;
+            margin-bottom: 40px;
+        }
+
+        .example-section {
+            margin-bottom: 40px;
+        }
+
+        .example-title {
+            font-size: 24px;
+            color: #4a90e2;
+            margin-bottom: 20px;
+            padding-left: 20px;
+            border-left: 4px solid #4a90e2;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Quiz Card Design Examples</h1>
+
+        <!-- Example 1: Multiple Choice Question -->
+        <div class="example-section">
+            <h2 class="example-title">Multiple Choice Question</h2>
+            <div class="quiz-card">
+                <div class="progress-bar">
+                    <div class="progress-fill" style="width: 30%;"></div>
+                </div>
+                
+                <div class="card-header">
+                    <div>
+                        <span class="category-badge">Science</span>
+                        <span class="difficulty-badge difficulty-easy">Easy</span>
+                    </div>
+                    <div class="timer">
+                        <span>⏱️</span>
+                        <span>0:30</span>
+                    </div>
+                </div>
+
+                <div class="question-section">
+                    <div class="question-number">Question 1 of 10</div>
+                    <div class="question-text">What is the chemical symbol for water?</div>
+                    <span class="question-points">⭐ 1 point</span>
+                    <div class="tags">
+                        <span class="tag">#chemistry</span>
+                        <span class="tag">#basics</span>
+                    </div>
+                </div>
+
+                <div class="options-section">
+                    <div class="option selected">
+                        <div class="option-radio"></div>
+                        <div class="option-text">H2O</div>
+                    </div>
+                    <div class="option">
+                        <div class="option-radio"></div>
+                        <div class="option-text">CO2</div>
+                    </div>
+                    <div class="option">
+                        <div class="option-radio"></div>
+                        <div class="option-text">O2</div>
+                    </div>
+                    <div class="option">
+                        <div class="option-radio"></div>
+                        <div class="option-text">NaCl</div>
+                    </div>
+                </div>
+
+                <div class="card-actions">
+                    <div>
+                        <button class="btn btn-hint">💡 Hint</button>
+                        <button class="btn btn-secondary">Skip</button>
+                    </div>
+                    <button class="btn btn-primary">Submit Answer →</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Example 2: Multiple Choice with Correct Answer -->
+        <div class="example-section">
+            <h2 class="example-title">Correct Answer Feedback</h2>
+            <div class="quiz-card">
+                <div class="progress-bar">
+                    <div class="progress-fill" style="width: 60%;"></div>
+                </div>
+                
+                <div class="card-header">
+                    <div>
+                        <span class="category-badge">History</span>
+                        <span class="difficulty-badge difficulty-medium">Medium</span>
+                    </div>
+                    <div class="timer">
+                        <span>⏱️</span>
+                        <span>0:15</span>
+                    </div>
+                </div>
+
+                <div class="question-section">
+                    <div class="question-number">Question 3 of 10</div>
+                    <div class="question-text">In which year did World War II end?</div>
+                    <span class="question-points">⭐ 2 points</span>
+                </div>
+
+                <div class="options-section">
+                    <div class="option">
+                        <div class="option-radio"></div>
+                        <div class="option-text">1943</div>
+                    </div>
+                    <div class="option">
+                        <div class="option-radio"></div>
+                        <div class="option-text">1944</div>
+                    </div>
+                    <div class="option correct">
+                        <div class="option-radio"></div>
+                        <div class="option-text">1945</div>
+                    </div>
+                    <div class="option">
+                        <div class="option-radio"></div>
+                        <div class="option-text">1946</div>
+                    </div>
+                </div>
+
+                <div class="feedback correct">
+                    <span class="feedback-icon">✅</span>
+                    <div class="feedback-text">
+                        <div class="feedback-title">Correct!</div>
+                        <div class="feedback-explanation">
+                            World War II ended in 1945 with the surrender of Germany in May and Japan in September.
+                        </div>
+                    </div>
+                </div>
+
+                <div class="card-actions">
+                    <div></div>
+                    <button class="btn btn-primary">Next Question →</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Example 3: True/False Question -->
+        <div class="example-section">
+            <h2 class="example-title">True/False Question</h2>
+            <div class="quiz-card">
+                <div class="progress-bar">
+                    <div class="progress-fill" style="width: 20%;"></div>
+                </div>
+                
+                <div class="card-header">
+                    <div>
+                        <span class="category-badge">Geography</span>
+                        <span class="difficulty-badge difficulty-easy">Easy</span>
+                    </div>
+                    <div class="timer">
+                        <span>⏱️</span>
+                        <span>0:20</span>
+                    </div>
+                </div>
+
+                <div class="question-section">
+                    <div class="question-number">Question 2 of 10</div>
+                    <div class="question-text">The Earth is flat.</div>
+                    <span class="question-points">⭐ 1 point</span>
+                </div>
+
+                <div class="options-section">
+                    <div class="option">
+                        <div class="option-radio"></div>
+                        <div class="option-text">True</div>
+                    </div>
+                    <div class="option selected">
+                        <div class="option-radio"></div>
+                        <div class="option-text">False</div>
+                    </div>
+                </div>
+
+                <div class="card-actions">
+                    <button class="btn btn-secondary">Skip</button>
+                    <button class="btn btn-primary">Submit Answer →</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Example 4: Short Answer Question -->
+        <div class="example-section">
+            <h2 class="example-title">Short Answer Question</h2>
+            <div class="quiz-card">
+                <div class="progress-bar">
+                    <div class="progress-fill" style="width: 40%;"></div>
+                </div>
+                
+                <div class="card-header">
+                    <div>
+                        <span class="category-badge">Science</span>
+                        <span class="difficulty-badge difficulty-medium">Medium</span>
+                    </div>
+                    <div class="timer">
+                        <span>⏱️</span>
+                        <span>0:40</span>
+                    </div>
+                </div>
+
+                <div class="question-section">
+                    <div class="question-number">Question 4 of 10</div>
+                    <div class="question-text">What planet is known as the Red Planet?</div>
+                    <span class="question-points">⭐ 2 points</span>
+                </div>
+
+                <div class="hint-box">
+                    <span class="hint-icon">💡</span>
+                    <strong>Hint:</strong> It's the fourth planet from the Sun
+                </div>
+
+                <div class="options-section">
+                    <input type="text" class="short-answer-input" placeholder="Type your answer here...">
+                </div>
+
+                <div class="card-actions">
+                    <button class="btn btn-secondary">Skip</button>
+                    <button class="btn btn-primary">Submit Answer →</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Example 5: Multiple Select Question -->
+        <div class="example-section">
+            <h2 class="example-title">Multiple Select Question</h2>
+            <div class="quiz-card">
+                <div class="progress-bar">
+                    <div class="progress-fill" style="width: 50%;"></div>
+                </div>
+                
+                <div class="card-header">
+                    <div>
+                        <span class="category-badge">Science</span>
+                        <span class="difficulty-badge difficulty-hard">Hard</span>
+                    </div>
+                    <div class="timer">
+                        <span>⏱️</span>
+                        <span>1:00</span>
+                    </div>
+                </div>
+
+                <div class="question-section">
+                    <div class="question-number">Question 5 of 10</div>
+                    <div class="question-text">Which of the following are noble gases?</div>
+                    <span class="question-points">⭐ 3 points</span>
+                    <div style="margin-top: 8px; font-size: 14px; color: #666;">
+                        <em>Select all that apply</em>
+                    </div>
+                </div>
+
+                <div class="options-section">
+                    <div class="option selected">
+                        <div class="option-checkbox"></div>
+                        <div class="option-text">Helium</div>
+                    </div>
+                    <div class="option">
+                        <div class="option-checkbox"></div>
+                        <div class="option-text">Nitrogen</div>
+                    </div>
+                    <div class="option selected">
+                        <div class="option-checkbox"></div>
+                        <div class="option-text">Argon</div>
+                    </div>
+                    <div class="option">
+                        <div class="option-checkbox"></div>
+                        <div class="option-text">Oxygen</div>
+                    </div>
+                    <div class="option selected">
+                        <div class="option-checkbox"></div>
+                        <div class="option-text">Neon</div>
+                    </div>
+                </div>
+
+                <div class="card-actions">
+                    <div>
+                        <button class="btn btn-hint">💡 Hint</button>
+                        <button class="btn btn-secondary">Skip</button>
+                    </div>
+                    <button class="btn btn-primary">Submit Answer →</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Example 6: Incorrect Answer Feedback -->
+        <div class="example-section">
+            <h2 class="example-title">Incorrect Answer Feedback</h2>
+            <div class="quiz-card">
+                <div class="progress-bar">
+                    <div class="progress-fill" style="width: 80%;"></div>
+                </div>
+                
+                <div class="card-header">
+                    <div>
+                        <span class="category-badge">Mathematics</span>
+                        <span class="difficulty-badge difficulty-easy">Easy</span>
+                    </div>
+                    <div class="timer">
+                        <span>⏱️</span>
+                        <span>0:10</span>
+                    </div>
+                </div>
+
+                <div class="question-section">
+                    <div class="question-number">Question 8 of 10</div>
+                    <div class="question-text">What is 7 × 8?</div>
+                    <span class="question-points">⭐ 1 point</span>
+                </div>
+
+                <div class="options-section">
+                    <div class="option">
+                        <div class="option-radio"></div>
+                        <div class="option-text">54</div>
+                    </div>
+                    <div class="option correct">
+                        <div class="option-radio"></div>
+                        <div class="option-text">56</div>
+                    </div>
+                    <div class="option incorrect">
+                        <div class="option-radio"></div>
+                        <div class="option-text">63</div>
+                    </div>
+                    <div class="option">
+                        <div class="option-radio"></div>
+                        <div class="option-text">64</div>
+                    </div>
+                </div>
+
+                <div class="feedback incorrect">
+                    <span class="feedback-icon">❌</span>
+                    <div class="feedback-text">
+                        <div class="feedback-title">Incorrect</div>
+                        <div class="feedback-explanation">
+                            The correct answer is 56. Remember that 7 multiplied by 8 equals 56.
+                        </div>
+                    </div>
+                </div>
+
+                <div class="card-actions">
+                    <div></div>
+                    <button class="btn btn-primary">Next Question →</button>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</body>
+</html>

@@ -1,0 +1,277 @@
+{
+  "quizzes": [
+    {
+      "id": "general-knowledge-001",
+      "title": "General Knowledge Quiz",
+      "description": "Test your knowledge across various topics",
+      "settings": {
+        "shuffleQuestions": true,
+        "shuffleOptions": true,
+        "showFeedback": true,
+        "allowSkip": true,
+        "passingScore": 70
+      },
+      "questions": [
+        {
+          "id": "q001",
+          "type": "multiple-choice",
+          "category": "Science",
+          "difficulty": "easy",
+          "points": 1,
+          "timeLimit": 30,
+          "question": "What is the chemical symbol for water?",
+          "options": [
+            "H2O",
+            "CO2",
+            "O2",
+            "NaCl"
+          ],
+          "correctAnswer": "H2O",
+          "explanation": "Water is composed of two hydrogen atoms and one oxygen atom, hence H2O.",
+          "hint": "Think about hydrogen and oxygen",
+          "tags": ["chemistry", "basics"]
+        },
+        {
+          "id": "q002",
+          "type": "true-false",
+          "category": "Geography",
+          "difficulty": "easy",
+          "points": 1,
+          "timeLimit": 20,
+          "question": "The Earth is flat.",
+          "correctAnswer": false,
+          "explanation": "The Earth is an oblate spheroid (nearly spherical), not flat.",
+          "tags": ["earth", "basics"]
+        },
+        {
+          "id": "q003",
+          "type": "multiple-choice",
+          "category": "History",
+          "difficulty": "medium",
+          "points": 2,
+          "timeLimit": 45,
+          "question": "In which year did World War II end?",
+          "options": [
+            "1943",
+            "1944",
+            "1945",
+            "1946"
+          ],
+          "correctAnswer": "1945",
+          "explanation": "World War II ended in 1945 with the surrender of Germany in May and Japan in September.",
+          "hint": "It was in the mid-1940s",
+          "tags": ["world-war", "20th-century"]
+        },
+        {
+          "id": "q004",
+          "type": "short-answer",
+          "category": "Science",
+          "difficulty": "medium",
+          "points": 2,
+          "timeLimit": 40,
+          "question": "What planet is known as the Red Planet?",
+          "correctAnswer": ["Mars", "mars"],
+          "explanation": "Mars is called the Red Planet because of its reddish appearance due to iron oxide on its surface.",
+          "hint": "It's the fourth planet from the Sun",
+          "tags": ["astronomy", "planets"]
+        },
+        {
+          "id": "q005",
+          "type": "multiple-select",
+          "category": "Science",
+          "difficulty": "hard",
+          "points": 3,
+          "timeLimit": 60,
+          "question": "Which of the following are noble gases?",
+          "options": [
+            "Helium",
+            "Nitrogen",
+            "Argon",
+            "Oxygen",
+            "Neon"
+          ],
+          "correctAnswer": ["Helium", "Argon", "Neon"],
+          "explanation": "Noble gases are the elements in Group 18 of the periodic table. They include Helium, Neon, Argon, Krypton, Xenon, and Radon.",
+          "hint": "Look for elements in Group 18",
+          "tags": ["chemistry", "periodic-table"]
+        },
+        {
+          "id": "q006",
+          "type": "multiple-choice",
+          "category": "Literature",
+          "difficulty": "medium",
+          "points": 2,
+          "timeLimit": 40,
+          "question": "Who wrote 'Romeo and Juliet'?",
+          "options": [
+            "Charles Dickens",
+            "William Shakespeare",
+            "Jane Austen",
+            "Mark Twain"
+          ],
+          "correctAnswer": "William Shakespeare",
+          "explanation": "Romeo and Juliet is a tragedy written by William Shakespeare early in his career about two young star-crossed lovers.",
+          "hint": "A famous English playwright from the 16th century",
+          "tags": ["shakespeare", "drama"]
+        },
+        {
+          "id": "q007",
+          "type": "true-false",
+          "category": "Technology",
+          "difficulty": "easy",
+          "points": 1,
+          "timeLimit": 20,
+          "question": "HTML stands for HyperText Markup Language.",
+          "correctAnswer": true,
+          "explanation": "HTML indeed stands for HyperText Markup Language, the standard language for creating web pages.",
+          "tags": ["web", "programming"]
+        },
+        {
+          "id": "q008",
+          "type": "multiple-choice",
+          "category": "Mathematics",
+          "difficulty": "easy",
+          "points": 1,
+          "timeLimit": 30,
+          "question": "What is 7 × 8?",
+          "options": [
+            "54",
+            "56",
+            "63",
+            "64"
+          ],
+          "correctAnswer": "56",
+          "explanation": "7 multiplied by 8 equals 56.",
+          "tags": ["arithmetic", "multiplication"]
+        },
+        {
+          "id": "q009",
+          "type": "multiple-choice",
+          "category": "Sports",
+          "difficulty": "medium",
+          "points": 2,
+          "timeLimit": 35,
+          "question": "How many players are on a soccer team on the field at one time?",
+          "options": [
+            "9",
+            "10",
+            "11",
+            "12"
+          ],
+          "correctAnswer": "11",
+          "explanation": "A soccer (football) team has 11 players on the field at one time, including the goalkeeper.",
+          "hint": "It's a prime number",
+          "tags": ["soccer", "team-sports"]
+        },
+        {
+          "id": "q010",
+          "type": "short-answer",
+          "category": "Geography",
+          "difficulty": "easy",
+          "points": 1,
+          "timeLimit": 30,
+          "question": "What is the capital of France?",
+          "correctAnswer": ["Paris", "paris"],
+          "explanation": "Paris is the capital and most populous city of France.",
+          "tags": ["capitals", "europe"]
+        }
+      ]
+    },
+    {
+      "id": "programming-101",
+      "title": "Programming Basics",
+      "description": "Test your knowledge of programming fundamentals",
+      "settings": {
+        "shuffleQuestions": false,
+        "shuffleOptions": true,
+        "showFeedback": true,
+        "allowSkip": false,
+        "passingScore": 80
+      },
+      "questions": [
+        {
+          "id": "p001",
+          "type": "multiple-choice",
+          "category": "Programming",
+          "difficulty": "easy",
+          "points": 1,
+          "timeLimit": 40,
+          "question": "What does HTML stand for?",
+          "options": [
+            "Hyperlinks and Text Markup Language",
+            "HyperText Markup Language",
+            "Home Tool Markup Language",
+            "HyperText Making Language"
+          ],
+          "correctAnswer": "HyperText Markup Language",
+          "explanation": "HTML stands for HyperText Markup Language, used to structure web pages.",
+          "tags": ["web", "basics"]
+        },
+        {
+          "id": "p002",
+          "type": "true-false",
+          "category": "Programming",
+          "difficulty": "easy",
+          "points": 1,
+          "timeLimit": 25,
+          "question": "JavaScript and Java are the same programming language.",
+          "correctAnswer": false,
+          "explanation": "JavaScript and Java are completely different languages with different purposes and syntax.",
+          "tags": ["javascript", "java", "misconceptions"]
+        },
+        {
+          "id": "p003",
+          "type": "multiple-select",
+          "category": "Programming",
+          "difficulty": "medium",
+          "points": 2,
+          "timeLimit": 50,
+          "question": "Which of the following are programming paradigms?",
+          "options": [
+            "Object-Oriented",
+            "Functional",
+            "Sequential",
+            "Procedural",
+            "Declarative"
+          ],
+          "correctAnswer": ["Object-Oriented", "Functional", "Procedural", "Declarative"],
+          "explanation": "Object-Oriented, Functional, Procedural, and Declarative are all valid programming paradigms. Sequential is not a recognized paradigm.",
+          "hint": "Four of these are correct",
+          "tags": ["paradigms", "concepts"]
+        },
+        {
+          "id": "p004",
+          "type": "short-answer",
+          "category": "Programming",
+          "difficulty": "easy",
+          "points": 1,
+          "timeLimit": 30,
+          "question": "What keyword is used to declare a variable in JavaScript that cannot be reassigned?",
+          "correctAnswer": ["const"],
+          "explanation": "The 'const' keyword is used to declare variables that cannot be reassigned in JavaScript.",
+          "hint": "It's short for 'constant'",
+          "tags": ["javascript", "variables"]
+        },
+        {
+          "id": "p005",
+          "type": "multiple-choice",
+          "category": "Programming",
+          "difficulty": "hard",
+          "points": 3,
+          "timeLimit": 60,
+          "question": "What is the time complexity of binary search?",
+          "options": [
+            "O(n)",
+            "O(log n)",
+            "O(n log n)",
+            "O(n²)"
+          ],
+          "correctAnswer": "O(log n)",
+          "explanation": "Binary search has a time complexity of O(log n) because it divides the search space in half with each iteration.",
+          "hint": "It involves repeatedly dividing the search space",
+          "tags": ["algorithms", "complexity"]
+        }
+      ]
+    }
+  ]
+}
