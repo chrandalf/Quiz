@@ -5,6 +5,7 @@
   --success-color: #4caf50;
   --error-color: #f44336;
   --warning-color: #ff9800;
+  --points-color: #ffd700;
   --text-primary: #333;
   --text-secondary: #666;
   --background: #f5f5f5;
@@ -111,7 +112,7 @@
 
 .question-points {
   display: inline-block;
-  background: #ffd700;
+  background: var(--points-color);
   color: #333;
   padding: 4px 10px;
   border-radius: 12px;

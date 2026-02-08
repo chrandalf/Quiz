@@ -106,8 +106,8 @@ class QuizApp {
       
       case 'multiple-select':
         if (!Array.isArray(userAnswer)) return false;
-        const correct = question.correctAnswer.sort();
-        const user = userAnswer.sort();
+        const correct = [...question.correctAnswer].sort();
+        const user = [...userAnswer].sort();
         return JSON.stringify(correct) === JSON.stringify(user);
       
       default:
@@ -212,7 +212,7 @@ class QuizApp {
       title: q.title,
       description: q.description,
       questionCount: q.questions.length,
-      totalPoints: q.questions.reduce((sum, q) => sum + q.points, 0)
+      totalPoints: q.questions.reduce((sum, question) => sum + question.points, 0)
     }));
   }
 }
