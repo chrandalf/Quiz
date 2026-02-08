@@ -67,13 +67,32 @@ class Card:
         return f"Card(suit={self.suit.name}, rank={self.rank.name})"
     
     def __eq__(self, other) -> bool:
-        """Check if two cards are equal."""
+        """
+        Check if two cards are equal.
+        
+        Cards are equal if they have the same suit and rank.
+        """
         if not isinstance(other, Card):
             return False
         return self.suit == other.suit and self.rank == other.rank
     
+    def __hash__(self) -> int:
+        """Make Card hashable so it can be used in sets and as dict keys."""
+        return hash((self.suit, self.rank))
+    
     def __lt__(self, other) -> bool:
-        """Compare cards by rank value for sorting."""
+        """
+        Compare cards by rank value for sorting.
+        
+        Note: Comparison is based on rank only, not suit. This is typical
+        for poker where card rank determines value (e.g., Ace > King).
+        
+        Args:
+            other: Another Card to compare with.
+            
+        Returns:
+            True if this card's rank is less than the other card's rank.
+        """
         if not isinstance(other, Card):
             return NotImplemented
         return self.rank.numeric_value < other.rank.numeric_value

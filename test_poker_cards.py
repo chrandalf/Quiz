@@ -240,8 +240,8 @@ class TestIntegration(unittest.TestCase):
         for hand in hands:
             all_cards.extend(hand.cards)
         
-        # No duplicates
-        self.assertEqual(len(all_cards), len(set([(c.suit, c.rank) for c in all_cards])))
+        # No duplicates - we can now use set directly since Card is hashable
+        self.assertEqual(len(all_cards), len(set(all_cards)))
 
 
 if __name__ == '__main__':
