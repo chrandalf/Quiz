@@ -1,0 +1,616 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Quiz Game - Play with Friends</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+        }
+
+        .container {
+            background: white;
+            border-radius: 20px;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+            padding: 40px;
+            max-width: 600px;
+            width: 100%;
+        }
+
+        h1 {
+            color: #667eea;
+            text-align: center;
+            margin-bottom: 30px;
+            font-size: 2.5em;
+        }
+
+        .screen {
+            display: none;
+        }
+
+        .screen.active {
+            display: block;
+        }
+
+        .button {
+            background: #667eea;
+            color: white;
+            border: none;
+            padding: 15px 30px;
+            border-radius: 10px;
+            font-size: 1.1em;
+            cursor: pointer;
+            width: 100%;
+            margin: 10px 0;
+            transition: background 0.3s;
+        }
+
+        .button:hover {
+            background: #5568d3;
+        }
+
+        .button.secondary {
+            background: #764ba2;
+        }
+
+        .button.secondary:hover {
+            background: #653a8a;
+        }
+
+        input {
+            width: 100%;
+            padding: 15px;
+            border: 2px solid #e0e0e0;
+            border-radius: 10px;
+            font-size: 1em;
+            margin: 10px 0;
+        }
+
+        .question-container {
+            margin: 20px 0;
+        }
+
+        .question {
+            font-size: 1.3em;
+            font-weight: bold;
+            margin-bottom: 20px;
+            color: #333;
+        }
+
+        .answer {
+            background: #f5f5f5;
+            border: 2px solid #e0e0e0;
+            padding: 15px;
+            border-radius: 10px;
+            margin: 10px 0;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .answer:hover {
+            background: #e8e8e8;
+            border-color: #667eea;
+        }
+
+        .answer.selected {
+            background: #667eea;
+            color: white;
+            border-color: #667eea;
+        }
+
+        .answer.correct {
+            background: #4caf50;
+            color: white;
+            border-color: #4caf50;
+        }
+
+        .answer.incorrect {
+            background: #f44336;
+            color: white;
+            border-color: #f44336;
+        }
+
+        .score-board {
+            background: #f5f5f5;
+            padding: 20px;
+            border-radius: 10px;
+            margin: 20px 0;
+        }
+
+        .player-score {
+            display: flex;
+            justify-content: space-between;
+            padding: 10px;
+            margin: 5px 0;
+            background: white;
+            border-radius: 5px;
+        }
+
+        .room-code {
+            background: #f5f5f5;
+            padding: 15px;
+            border-radius: 10px;
+            text-align: center;
+            font-size: 1.5em;
+            font-weight: bold;
+            color: #667eea;
+            margin: 20px 0;
+        }
+
+        .info {
+            background: #e3f2fd;
+            padding: 15px;
+            border-radius: 10px;
+            margin: 15px 0;
+            color: #1976d2;
+        }
+
+        .player-list {
+            background: #f5f5f5;
+            padding: 15px;
+            border-radius: 10px;
+            margin: 15px 0;
+        }
+
+        .player-item {
+            padding: 10px;
+            background: white;
+            margin: 5px 0;
+            border-radius: 5px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .status {
+            font-size: 0.9em;
+            color: #666;
+        }
+
+        .winner {
+            font-size: 3em;
+            text-align: center;
+            margin: 20px 0;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>🎯 Quiz Game</h1>
+
+        <!-- Home Screen -->
+        <div id="homeScreen" class="screen active">
+            <button class="button" onclick="showScreen('createScreen')">Create New Game</button>
+            <button class="button secondary" onclick="showScreen('joinScreen')">Join Game</button>
+        </div>
+
+        <!-- Create Game Screen -->
+        <div id="createScreen" class="screen">
+            <input type="text" id="hostName" placeholder="Enter your name" />
+            <button class="button" onclick="createGame()">Create Game</button>
+            <button class="button secondary" onclick="showScreen('homeScreen')">Back</button>
+        </div>
+
+        <!-- Join Game Screen -->
+        <div id="joinScreen" class="screen">
+            <input type="text" id="playerName" placeholder="Enter your name" />
+            <input type="text" id="roomCode" placeholder="Enter room code" />
+            <button class="button" onclick="joinGame()">Join Game</button>
+            <button class="button secondary" onclick="showScreen('homeScreen')">Back</button>
+        </div>
+
+        <!-- Lobby Screen -->
+        <div id="lobbyScreen" class="screen">
+            <div class="room-code">
+                Room Code: <span id="displayRoomCode"></span>
+            </div>
+            <div class="info">
+                Share this code with your friends to let them join!
+            </div>
+            <div class="player-list">
+                <h3>Players:</h3>
+                <div id="playersList"></div>
+            </div>
+            <button class="button" onclick="startGame()" id="startButton">Start Game</button>
+            <button class="button secondary" onclick="leaveGame()">Leave Game</button>
+        </div>
+
+        <!-- Game Screen -->
+        <div id="gameScreen" class="screen">
+            <div class="score-board">
+                <div id="scores"></div>
+            </div>
+            <div class="question-container">
+                <div class="question" id="question"></div>
+                <div id="answers"></div>
+            </div>
+            <button class="button" id="nextButton" onclick="nextQuestion()" style="display: none;">Next Question</button>
+        </div>
+
+        <!-- Results Screen -->
+        <div id="resultsScreen" class="screen">
+            <div class="winner" id="winnerEmoji">🏆</div>
+            <h2 style="text-align: center; margin-bottom: 20px;">Game Over!</h2>
+            <div class="score-board">
+                <div id="finalScores"></div>
+            </div>
+            <button class="button" onclick="showScreen('homeScreen'); resetGame();">Play Again</button>
+        </div>
+    </div>
+
+    <script>
+        // Game state
+        let gameState = {
+            roomCode: '',
+            players: [],
+            currentPlayer: null,
+            currentPlayerName: '',
+            currentQuestionIndex: 0,
+            questions: [
+                {
+                    question: "What is the capital of France?",
+                    answers: ["London", "Berlin", "Paris", "Madrid"],
+                    correct: 2
+                },
+                {
+                    question: "Which planet is known as the Red Planet?",
+                    answers: ["Venus", "Mars", "Jupiter", "Saturn"],
+                    correct: 1
+                },
+                {
+                    question: "What is 2 + 2?",
+                    answers: ["3", "4", "5", "6"],
+                    correct: 1
+                },
+                {
+                    question: "Who painted the Mona Lisa?",
+                    answers: ["Van Gogh", "Picasso", "Leonardo da Vinci", "Monet"],
+                    correct: 2
+                },
+                {
+                    question: "What is the largest ocean on Earth?",
+                    answers: ["Atlantic", "Indian", "Arctic", "Pacific"],
+                    correct: 3
+                },
+                {
+                    question: "In what year did World War II end?",
+                    answers: ["1943", "1944", "1945", "1946"],
+                    correct: 2
+                },
+                {
+                    question: "What is the smallest prime number?",
+                    answers: ["0", "1", "2", "3"],
+                    correct: 2
+                },
+                {
+                    question: "Which element has the chemical symbol 'O'?",
+                    answers: ["Gold", "Oxygen", "Silver", "Iron"],
+                    correct: 1
+                },
+                {
+                    question: "How many continents are there?",
+                    answers: ["5", "6", "7", "8"],
+                    correct: 2
+                },
+                {
+                    question: "What is the speed of light?",
+                    answers: ["300,000 km/s", "150,000 km/s", "450,000 km/s", "600,000 km/s"],
+                    correct: 0
+                }
+            ],
+            isHost: false
+        };
+
+        // Utility functions
+        function showScreen(screenId) {
+            document.querySelectorAll('.screen').forEach(screen => {
+                screen.classList.remove('active');
+            });
+            document.getElementById(screenId).classList.add('active');
+        }
+
+        function generateRoomCode() {
+            return Math.random().toString(36).substring(2, 8).toUpperCase();
+        }
+
+        // Create game
+        function createGame() {
+            const hostName = document.getElementById('hostName').value.trim();
+            if (!hostName) {
+                alert('Please enter your name');
+                return;
+            }
+
+            gameState.roomCode = generateRoomCode();
+            gameState.isHost = true;
+            gameState.currentPlayerName = hostName;
+            gameState.currentPlayer = {
+                name: hostName,
+                score: 0,
+                answered: false
+            };
+            gameState.players = [gameState.currentPlayer];
+
+            // Save to localStorage
+            localStorage.setItem(`quiz_${gameState.roomCode}`, JSON.stringify(gameState));
+
+            document.getElementById('displayRoomCode').textContent = gameState.roomCode;
+            updatePlayersList();
+            showScreen('lobbyScreen');
+
+            // Poll for new players
+            startPolling();
+        }
+
+        // Join game
+        function joinGame() {
+            const playerName = document.getElementById('playerName').value.trim();
+            const roomCode = document.getElementById('roomCode').value.trim().toUpperCase();
+
+            if (!playerName || !roomCode) {
+                alert('Please enter your name and room code');
+                return;
+            }
+
+            const savedGame = localStorage.getItem(`quiz_${roomCode}`);
+            if (!savedGame) {
+                alert('Room not found. Please check the code.');
+                return;
+            }
+
+            gameState = JSON.parse(savedGame);
+            gameState.currentPlayerName = playerName;
+            gameState.currentPlayer = {
+                name: playerName,
+                score: 0,
+                answered: false
+            };
+            gameState.players.push(gameState.currentPlayer);
+            gameState.isHost = false;
+
+            localStorage.setItem(`quiz_${roomCode}`, JSON.stringify(gameState));
+
+            document.getElementById('displayRoomCode').textContent = roomCode;
+            updatePlayersList();
+            showScreen('lobbyScreen');
+
+            // Poll for game updates
+            startPolling();
+        }
+
+        // Update players list
+        function updatePlayersList() {
+            const playersList = document.getElementById('playersList');
+            playersList.innerHTML = '';
+
+            gameState.players.forEach(player => {
+                const playerItem = document.createElement('div');
+                playerItem.className = 'player-item';
+                playerItem.innerHTML = `
+                    <span>${player.name}</span>
+                    <span class="status">${player.name === gameState.currentPlayerName ? '(You)' : ''}</span>
+                `;
+                playersList.appendChild(playerItem);
+            });
+
+            // Only host can start game
+            const startButton = document.getElementById('startButton');
+            if (gameState.isHost) {
+                startButton.style.display = 'block';
+            } else {
+                startButton.style.display = 'none';
+            }
+        }
+
+        // Start game
+        function startGame() {
+            gameState.currentQuestionIndex = 0;
+            gameState.players.forEach(player => {
+                player.score = 0;
+                player.answered = false;
+            });
+            
+            localStorage.setItem(`quiz_${gameState.roomCode}`, JSON.stringify(gameState));
+            localStorage.setItem(`quiz_${gameState.roomCode}_started`, 'true');
+            
+            showScreen('gameScreen');
+            displayQuestion();
+            startPolling();
+        }
+
+        // Display question
+        function displayQuestion() {
+            const question = gameState.questions[gameState.currentQuestionIndex];
+            document.getElementById('question').textContent = question.question;
+
+            const answersDiv = document.getElementById('answers');
+            answersDiv.innerHTML = '';
+
+            question.answers.forEach((answer, index) => {
+                const answerDiv = document.createElement('div');
+                answerDiv.className = 'answer';
+                answerDiv.textContent = answer;
+                answerDiv.onclick = () => selectAnswer(index);
+                answersDiv.appendChild(answerDiv);
+            });
+
+            updateScores();
+            document.getElementById('nextButton').style.display = 'none';
+        }
+
+        // Select answer
+        function selectAnswer(index) {
+            // Find current player by name
+            const currentPlayer = gameState.players.find(p => p.name === gameState.currentPlayerName);
+            if (!currentPlayer || currentPlayer.answered) return;
+
+            const question = gameState.questions[gameState.currentQuestionIndex];
+            const answers = document.querySelectorAll('.answer');
+
+            answers.forEach((answer, i) => {
+                if (i === index) {
+                    answer.classList.add('selected');
+                }
+            });
+
+            // Check if correct
+            setTimeout(() => {
+                answers.forEach((answer, i) => {
+                    if (i === question.correct) {
+                        answer.classList.add('correct');
+                    } else if (i === index) {
+                        answer.classList.add('incorrect');
+                    }
+                    answer.onclick = null;
+                });
+
+                if (index === question.correct) {
+                    currentPlayer.score += 10;
+                }
+
+                currentPlayer.answered = true;
+                localStorage.setItem(`quiz_${gameState.roomCode}`, JSON.stringify(gameState));
+                updateScores();
+
+                document.getElementById('nextButton').style.display = 'block';
+            }, 500);
+        }
+
+        // Update scores
+        function updateScores() {
+            const scoresDiv = document.getElementById('scores');
+            scoresDiv.innerHTML = '<h3>Scores:</h3>';
+
+            gameState.players.forEach(player => {
+                const scoreItem = document.createElement('div');
+                scoreItem.className = 'player-score';
+                scoreItem.innerHTML = `
+                    <span>${player.name}</span>
+                    <span>${player.score} pts</span>
+                `;
+                scoresDiv.appendChild(scoreItem);
+            });
+        }
+
+        // Next question
+        function nextQuestion() {
+            gameState.currentQuestionIndex++;
+
+            if (gameState.currentQuestionIndex >= gameState.questions.length) {
+                showResults();
+                return;
+            }
+
+            // Find current player and reset answered status
+            const currentPlayer = gameState.players.find(p => p.name === gameState.currentPlayerName);
+            if (currentPlayer) {
+                currentPlayer.answered = false;
+            }
+            localStorage.setItem(`quiz_${gameState.roomCode}`, JSON.stringify(gameState));
+            displayQuestion();
+        }
+
+        // Show results
+        function showResults() {
+            const finalScoresDiv = document.getElementById('finalScores');
+            finalScoresDiv.innerHTML = '<h3>Final Scores:</h3>';
+
+            const sortedPlayers = [...gameState.players].sort((a, b) => b.score - a.score);
+
+            sortedPlayers.forEach((player, index) => {
+                const scoreItem = document.createElement('div');
+                scoreItem.className = 'player-score';
+                scoreItem.innerHTML = `
+                    <span>${index === 0 ? '🥇' : index === 1 ? '🥈' : index === 2 ? '🥉' : ''}  ${player.name}</span>
+                    <span>${player.score} pts</span>
+                `;
+                finalScoresDiv.appendChild(scoreItem);
+            });
+
+            showScreen('resultsScreen');
+        }
+
+        // Leave game
+        function leaveGame() {
+            if (confirm('Are you sure you want to leave?')) {
+                stopPolling();
+                showScreen('homeScreen');
+                resetGame();
+            }
+        }
+
+        // Reset game
+        function resetGame() {
+            stopPolling();
+            gameState = {
+                roomCode: '',
+                players: [],
+                currentPlayer: null,
+                currentPlayerName: '',
+                currentQuestionIndex: 0,
+                questions: gameState.questions,
+                isHost: false
+            };
+        }
+
+        // Polling for updates
+        let pollInterval;
+
+        function startPolling() {
+            stopPolling();
+            pollInterval = setInterval(checkForUpdates, 2000);
+        }
+
+        function stopPolling() {
+            if (pollInterval) {
+                clearInterval(pollInterval);
+                pollInterval = null;
+            }
+        }
+
+        function checkForUpdates() {
+            if (!gameState.roomCode) return;
+
+            const savedGame = localStorage.getItem(`quiz_${gameState.roomCode}`);
+            if (savedGame) {
+                const updatedGame = JSON.parse(savedGame);
+                
+                // Update players list if in lobby
+                if (document.getElementById('lobbyScreen').classList.contains('active')) {
+                    if (updatedGame.players.length !== gameState.players.length) {
+                        gameState.players = updatedGame.players;
+                        updatePlayersList();
+                    }
+
+                    // Check if game started
+                    if (localStorage.getItem(`quiz_${gameState.roomCode}_started`) === 'true' && !gameState.isHost) {
+                        gameState.players = updatedGame.players;
+                        gameState.currentQuestionIndex = updatedGame.currentQuestionIndex;
+                        showScreen('gameScreen');
+                        displayQuestion();
+                    }
+                }
+
+                // Update scores if in game
+                if (document.getElementById('gameScreen').classList.contains('active')) {
+                    gameState.players = updatedGame.players;
+                    updateScores();
+                }
+            }
+        }
+    </script>
+</body>
+</html>
